@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
+    event(new \App\Events\MessageSent( App\Sheep::find(1), App\Message::find(1)));
     return view('welcome');
 });

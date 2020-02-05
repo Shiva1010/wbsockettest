@@ -1,5 +1,7 @@
 <?php
 
+
+
 return [
 
     /*
@@ -46,6 +48,12 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'sheep' => [
+            'driver' => 'token',
+            'provider' => 'sheep',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -71,10 +79,17 @@ return [
             'model' => App\User::class,
         ],
 
+        'sheep' => [
+            'driver' => 'eloquent',
+            'model' => App\Sheep::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+
     ],
 
     /*
