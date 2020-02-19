@@ -8,20 +8,36 @@ use NotificationChannels\OneSignal\OneSignalMessage;
 use NotificationChannels\OneSignal\OneSignalWebButton;
 use Illuminate\Notifications\Notification;
 
+use App\Message;
+use App\Sheep;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Http\Request;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class onesignaltest extends Notification
 {
-    use Queueable;
-    private $data; //  //this is the "model" data that will be passed through the notify method
+    use Queueable,Dispatchable, InteractsWithSockets, SerializesModels;
+//    private $data; //  //this is the "model" data that will be passed through the notify method
+
+    public $sheep;
+
+    public $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct(Sheep $sheep, Message $message)
     {
-        $this->data = $data;
+        $this->sheep = $sheep;
+        $this->message = $message;
+
     }
 
     /**
@@ -32,7 +48,7 @@ class onesignaltest extends Notification
      */
     public function via($notifiable)
     {
-        return ['OneSignalChannel::class'];
+        return ['OneSignalServiceProvider::class'];
     }
 
     /**
@@ -41,18 +57,30 @@ class onesignaltest extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toOneSignal($notifiable)
+//    public function toOneSignal($notifiable)
+//    {
+//        return OneSignalMessage::create()
+//            ->subject("Your {$notifiable->service} account was approved!")
+//            ->body("Click here to see details.")
+//            ->url('http://onesignal.com')
+//            ->webButton(
+//                OneSignalWebButton::create('link-1')
+//                    ->text('Click here')
+//                    ->icon('https://upload.wikimedia.org/wikipedia/commons/4/4f/Laravel_logo.png')
+//                    ->url('http://laravel.com')
+//            );    }
+
+
+    public function toOneSignal()
     {
-        return OneSignalMessage::create()
-            ->subject("Your {$notifiable->service} account was approved!")
-            ->body("Click here to see details.")
-            ->url('http://onesignal.com')
-            ->webButton(
-                OneSignalWebButton::create('link-1')
-                    ->text('Click here')
-                    ->icon('https://upload.wikimedia.org/wikipedia/commons/4/4f/Laravel_logo.png')
-                    ->url('http://laravel.com')
-            );    }
+        OneSignal::sendNotificationToAll(
+            "如果看到了，就是我出運了",
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+    }
 
     /**
      * Get the array representation of the notification.

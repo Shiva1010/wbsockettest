@@ -51,7 +51,10 @@ class ChatsController extends Controller
 //            (new MessageSent($sheep, $message)));
 //        broadcast(new MessageSent($sheep, $message))->toOthers();
 
+
         return response()->json(['status' => 'Message Sent!']);
     }
+
+
 
 }

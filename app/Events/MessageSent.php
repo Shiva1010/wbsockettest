@@ -6,6 +6,7 @@ namespace App\Events;
 use App\Message;
 use App\Sheep;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -56,4 +57,8 @@ class MessageSent implements ShouldBroadcast
     {
         return new Channel('chat');
     }
+
+
+
+
 }
