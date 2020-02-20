@@ -170,4 +170,11 @@ class SheepController extends Controller
     {
         //
     }
+
+    public function privacypolicy ()
+    {
+        return view('rightofprivacy');
+    }
+
+
 }

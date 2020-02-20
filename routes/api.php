@@ -35,4 +35,7 @@ Route::group(['middleware' => ['auth:sheep']], function(){
     Route::post('/messages', 'ChatsController@sendMessage');
 });
 
+
+Route::get('/privacypolicy','SheepController@privacypolicy');
+
 //Route::post('/messages', 'ChatsController@sendMessage');
