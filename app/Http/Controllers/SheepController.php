@@ -30,15 +30,15 @@ class SheepController extends Controller
      */
     public function store(Request $request)
     {
-        // 確認是否有相同 account
-        $check_account =Sheep::where('account', $request->account)->first();
+        // 確認是否有相同 email
+        $check_email =Sheep::where('email', $request->email)->first();
 
         // 如果未註冊，則進入驗證資料是否符合格式跟創建會員資料
-        if($check_account == null) {
+        if($check_email == null) {
 
             $rules = [
                 'name' => ['required', 'string','max:30'],
-                'account' => ['required', 'string', 'max:20'],
+                'email' => ['required', 'string', 'max:20'],
                 'password' => ['required', 'string', 'min:8', 'max:20'],
             ];
 
@@ -59,7 +59,7 @@ class SheepController extends Controller
 
                 $create = Sheep::create([
                     'name' => $request['name'],
-                    'account' => $request['account'],
+                    'email' => $request['email'],
                     'password' => $HashPwd,
                     'api_token' => $api_token
                 ]);
@@ -81,7 +81,8 @@ class SheepController extends Controller
     {
 
         $rules = [
-            'account' => ['required', 'string', 'max:20'],
+            'email' => ['required', 'string', 'max:20'],
+
             'password' => ['required', 'string', 'min:8', 'max:12'],
         ];
 
@@ -96,24 +97,24 @@ class SheepController extends Controller
         } else {
 
             // 查詢帳戶是否在註冊名單內
-            $check_account = Sheep::where('account', $request->account)->first();
+            $check_email = Sheep::where('email', $request->email)->first();
 
 
-            if ($check_account == null) {
+            if ($check_email == null) {
 
                 return response()->json(['msg' => '帳戶尚未註冊'], 403);
 
             } else {
 
                 // 從註冊名單內提取被 hash 的 password
-                $hash_password = $check_account->password;
+                $hash_password = $check_email->password;
 
                 $pwd = $request['password'];
 
                 // 將 $request 的 password 與 DB 內已被 hash 的 password 做 check
                 if (Hash::check($pwd, $hash_password)) {
 
-                    $now_sheep = Sheep::where('account', $request->account)->first();
+                    $now_sheep = Sheep::where('email', $request->email)->first();
 
 
                     if ($now_sheep) {

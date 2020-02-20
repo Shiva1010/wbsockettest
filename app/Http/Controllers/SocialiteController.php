@@ -7,6 +7,11 @@ use Socialite;
 
 class SocialiteController extends Controller
 {
+
+    protected $providers = [
+        'google',
+    ];
+
     /**
      * Redirect the user to the Google authentication page.
      *
@@ -15,7 +20,14 @@ class SocialiteController extends Controller
 
     public function RedirectToProvider()
     {
-        return Socialite::driver('google')->redirect();
+
+        try {
+            return Socialite::driver('google')->redirect();
+        } catch (Exception $e) {
+            // You should show something simple fail message
+            return $this->sendFailedResponse($e->getMessage());
+        }
+
     }
 
     /**

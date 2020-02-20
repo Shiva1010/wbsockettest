@@ -13,7 +13,7 @@ class Sheep extends Authenticatable
 
 
     protected $fillable=[
-        'name','account','api_token','password',
+        'name','email','api_token','password',
     ];
 
     /**
