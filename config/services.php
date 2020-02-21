@@ -39,7 +39,7 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),         // Your Google Client ID
         'client_secret' => env('GOOGLE_CLIENT_SECRET'), // Your Google Client Secret
-        'redirect' => 'http://bala.chatroom.shiva10.nctu.me/api/google/auth',
+        'redirect' => env('GOOGLE_CALLBACK'),
     ],
 
 ];

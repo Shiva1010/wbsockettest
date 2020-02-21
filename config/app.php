@@ -176,6 +176,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
 
-    ],
+        'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
 
+    ],
 ];
