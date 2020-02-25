@@ -38,7 +38,7 @@ class SocialiteController extends Controller
 
     public function HandleProviderCallback()
     {
-        $user =Socialite::driver('google')->user;
+        $user =Socialite::driver('google')->user();
 
         $email=$user->email;
         $token=$user->token;
