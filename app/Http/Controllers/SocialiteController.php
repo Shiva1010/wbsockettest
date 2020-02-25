@@ -40,7 +40,10 @@ class SocialiteController extends Controller
     {
         $user =Socialite::driver('google')->user;
 
-        dd($user);
+        $email=$user->email;
+        $token=$user->token;
+        return response()->json(['email'=>$email,'token' => $token]);
+//        dd($user)S;
     }
 
     public  function CheckToken(Request $request)
