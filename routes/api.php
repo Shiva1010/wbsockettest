@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth:sheep']], function(){
 
 
 Route::get('/google/auth', 'SocialiteController@RedirectToProvider');
-Route::get('/google/auth/callback', 'SocialiteController@HandleProviderCallback');
+Route::post('/google/auth/callback', 'SocialiteController@HandleProviderCallback');
 
 Route::get('/privacypolicy','SheepController@privacypolicy');
 
