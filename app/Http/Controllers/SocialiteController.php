@@ -36,9 +36,16 @@ class SocialiteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function HandleProviderCallback(Request $request)
+    public function HandleProviderCallback()
     {
-//        $sheep_email = $request['email'];
+        $user =Socialite::driver('google')->user;
+
+        dd($user);
+    }
+
+    public  function CheckToken(Request $request)
+    {
+        //        $sheep_email = $request['email'];
         $token = $request['token'];
 
         $user =Socialite::driver('google')->userFromToken($token);
