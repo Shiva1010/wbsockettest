@@ -42,4 +42,9 @@ return [
         'redirect' => env('GOOGLE_CALLBACK'),
     ],
 
+    'googleandroid' => [
+        'client_id' => env('ANDROID_GOOGLE_CLIENT_ID'),         // Your Google Android Client ID
+        'redirect' => env('ANDROID_GOOGLE_CALLBACK'),
+    ],
+
 ];
