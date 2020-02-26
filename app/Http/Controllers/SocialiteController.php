@@ -56,4 +56,15 @@ class SocialiteController extends Controller
         dd($user);
     }
 
+    public function CheckAndroidToken(Request $request)
+    {
+        $token = $request['token'];
+
+        $androidUser = Socialite::driver('googleandroid')->userFromToken($token);
+
+        dd($androidUser);
+
+
+    }
+
 }
