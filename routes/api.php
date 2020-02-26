@@ -40,6 +40,7 @@ Route::get('/google/auth', 'SocialiteController@RedirectToProvider');
 Route::get('/google/auth/callback', 'SocialiteController@HandleProviderCallback');
 
 Route::post('/google/auth/checktoken', 'SocialiteController@CheckToken');
+Route::post('/google/auth/checkandroidtoken', 'SocialiteController@CheckAndroidToken');
 
 Route::get('/privacypolicy','SheepController@privacypolicy');
 
