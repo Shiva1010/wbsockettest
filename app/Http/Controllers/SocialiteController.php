@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Socialite;
 
-require_once __DIR__ . '/vendor/autoload.php';
+
 
 class SocialiteController extends Controller
 {
@@ -72,7 +72,7 @@ class SocialiteController extends Controller
 
     public function TestCheckAndroidToken(Request $request)
     {
-//        require_once 'vendor/autoload.php';
+        require_once 'vendor/autoload.php';
 
         // Get $id_token via HTTPS POST.
 
