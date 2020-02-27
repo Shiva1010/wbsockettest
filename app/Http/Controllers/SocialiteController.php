@@ -66,5 +66,24 @@ class SocialiteController extends Controller
 
 
     }
+    public function TestCheckAndroidToken(Request $request)
+    {
+        require_once 'vendor/autoload.php';
+
+        // Get $id_token via HTTPS POST.
+
+        $CLIENT_ID ='431122609682-9kt3dot3fjeq92rkar83mor16siod2ch.apps.googleusercontent.com';
+        $id_token = $request['id_token'];
+        $client = new Google_Client(['client_id' => $CLIENT_ID]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $payload = $client->verifyIdToken($id_token);
+//        if ($payload) {
+//            $userid = $payload['sub'];
+//            // If request specified a G Suite domain:
+//            //$domain = $payload['hd'];
+//        } else {
+//            // Invalid ID token
+//        }
+        dd($payload);
+    }
 
 }
