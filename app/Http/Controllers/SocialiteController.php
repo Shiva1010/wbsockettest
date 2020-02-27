@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Socialite;
+use Google_Client;
 
 
 
@@ -70,7 +71,7 @@ class SocialiteController extends Controller
     }
 
 
-    public function TestCheckAndroidToken(Request $request)
+    public function FirebaseCheckAndroidToken(Request $request)
     {
 //        require_once 'vendor/autoload.php';
 
