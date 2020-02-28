@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Sheep;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Socialite;
 use Google_Client;
+use Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -92,10 +97,37 @@ class SocialiteController extends Controller
 //        dd($payload);
         $google_email = $payload ["email"];
         $google_name = $payload ["name"];
-//
-        return response()->json([
-            'email'=>$google_email,
-            'name' => $google_name]);
+
+        $sheep_data = Sheep::where('email',$google_email)->first();
+
+        if ($sheep_data == null)
+        {
+            $str_password = Str::random(20);
+            $api_token = Str::random(15);
+            $HashPwd = Hash::make($str_password);
+            $login_method = 'google';
+
+            $create = Sheep::create([
+                'name' => $google_name,
+                'email' => $google_email,
+                'password' => $HashPwd,
+                'api_token' => $api_token,
+                'login_method' => $login_method,
+            ]);
+
+            return response()->json(['msg' => '尚未註冊，新註冊戶', 'create_data' => $create]);
+
+        }else{
+
+            return response()->json([
+                'msg' => '此用戶已註冊過',
+                'email'=>$google_email,
+                'name' => $google_name,
+                'old_data' => $sheep_data,
+            ]);
+        }
+
+
     }
 
 }
