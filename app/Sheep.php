@@ -15,7 +15,7 @@ class Sheep extends Authenticatable
 
 
     protected $fillable=[
-        'name','email','api_token','password',
+        'name','email','api_token','password','login_method',
     ];
 
 
@@ -33,6 +33,8 @@ class Sheep extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+
 
     protected $casts=[
       'email_verified_at' => 'datetime',

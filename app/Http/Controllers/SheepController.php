@@ -52,16 +52,18 @@ class SheepController extends Controller
                 return response()->json(['msg' => '輸入資料不符合格式，密碼只接受 8~20 字元內'],403);
 
             } else {
-
+                $login_method = 'sheepuser';
                 $api_token = Str::random(10);
                 // hash password
                 $HashPwd = Hash::make($request['password']);
+
 
                 $create = Sheep::create([
                     'name' => $request['name'],
                     'email' => $request['email'],
                     'password' => $HashPwd,
-                    'api_token' => $api_token
+                    'api_token' => $api_token,
+                    'login_method' => $login_method,
                 ]);
 
                 return response()->json([
