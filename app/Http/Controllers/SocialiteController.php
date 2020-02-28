@@ -10,6 +10,7 @@ use Google_Client;
 use Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 
 
@@ -123,16 +124,25 @@ class SocialiteController extends Controller
         }else{
 
 
-//
-//            $sheep_api_token = Str::random(15);
-//            $update = $sheep_data->update(['api_tokne' => $sheep_api_token]);
+
+            $sheep_api_token = Str::random(15);
+
+            // 用 DB 方式 update
+//            DB::table('sheep')
+//                ->where('email',$google_email)
+//                ->update(["api_token" =>$sheep_api_token]);
+
+            $sheep_data -> update(["api_token" =>$sheep_api_token]);
+
+
+            $new_sheep_data = Sheep::where('email',$google_email)->first();
 
 
 
 
             return response()->json([
                 'msg' => '此用戶已註冊過',
-                'data' =>$sheep_data,
+                'data' =>$new_sheep_data,
             ]);
         }
 
