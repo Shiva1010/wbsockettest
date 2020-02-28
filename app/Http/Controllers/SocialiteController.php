@@ -88,7 +88,14 @@ class SocialiteController extends Controller
 //        } else {
 //            // Invalid ID token
 //        }
-        dd($payload);
+
+//        dd($payload);
+        $google_email = $payload ["email"];
+        $google_name = $payload ["name"];
+//
+        return response()->json([
+            'email'=>$google_email,
+            'name' => $google_name]);
     }
 
 }
