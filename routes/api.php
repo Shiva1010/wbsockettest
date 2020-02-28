@@ -35,13 +35,16 @@ Route::group(['middleware' => ['auth:sheep']], function(){
     Route::post('/messages', 'ChatsController@sendMessage');
 });
 
+// google web
+Route::get('/google/web/auth', 'SocialiteController@RedirectToProvider');
+Route::get('/google/web/auth/callback', 'SocialiteController@HandleProviderCallback');
+Route::post('/google/web/authtoken', 'SocialiteController@CheckToken');
 
-Route::get('/google/auth', 'SocialiteController@RedirectToProvider');
-Route::get('/google/auth/callback', 'SocialiteController@HandleProviderCallback');
 
-Route::post('/google/auth/checktoken', 'SocialiteController@CheckToken');
+// google android
+Route::post('/google/android/authtoken', 'SocialiteController@FirebaseCheckAndroidToken');
+
 Route::post('/google/auth/checkandroidtoken', 'SocialiteController@CheckAndroidToken');
-Route::post('/google/auth/firebasecheckandroidtoken', 'SocialiteController@FirebaseCheckAndroidToken');
 
 Route::get('/privacypolicy','SheepController@privacypolicy');
 
