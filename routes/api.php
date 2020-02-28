@@ -44,6 +44,8 @@ Route::post('/google/web/authtoken', 'SocialiteController@CheckToken');
 // google android
 Route::post('/google/android/authtoken', 'SocialiteController@FirebaseCheckAndroidToken');
 
+
+// not complete android token
 Route::post('/google/auth/checkandroidtoken', 'SocialiteController@CheckAndroidToken');
 
 Route::get('/privacypolicy','SheepController@privacypolicy');
