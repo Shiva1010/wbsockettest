@@ -115,15 +115,24 @@ class SocialiteController extends Controller
                 'login_method' => $login_method,
             ]);
 
-            return response()->json(['msg' => '尚未註冊，新註冊戶', 'create_data' => $create]);
+            return response()->json([
+                'msg' => '尚未註冊，新註冊戶',
+                'data' => $create
+            ]);
 
         }else{
 
+
+//
+//            $sheep_api_token = Str::random(15);
+//            $update = $sheep_data->update(['api_tokne' => $sheep_api_token]);
+
+
+
+
             return response()->json([
                 'msg' => '此用戶已註冊過',
-                'email'=>$google_email,
-                'name' => $google_name,
-                'old_data' => $sheep_data,
+                'data' =>$sheep_data,
             ]);
         }
 
