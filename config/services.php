@@ -47,4 +47,13 @@ return [
         'redirect' => env('ANDROID_GOOGLE_CALLBACK'),
     ],
 
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),         // Your Google Client ID
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'), // Your Google Client Secret
+        'redirect' => env('FACEBOOK_CALLBACK'),
+    ],
+
+
+
+
 ];
