@@ -193,6 +193,22 @@ class SocialiteController extends Controller
         }
 
 
+
     }
 
+    public function FbWebAuth(){
+        try {
+            return Socialite::driver('facebook')->redirect();
+        } catch (Exception $e) {
+            // You should show something simple fail message
+            return $this->sendFailedResponse($e->getMessage());
+        }
+    }
+
+
+    public function FbWebAuthCallback(){
+       $fb_user=Socialite::driver('facebook');
+       dd($fb_user);
+
+    }
 }
