@@ -48,9 +48,55 @@ class SocialiteController extends Controller
     public function HandleProviderCallback()
     {
         $user =Socialite::driver('google')->user();
-
+        $name=$user->name;
         $email=$user->email;
         $token=$user->token;
+
+        $google_user = Sheep::where('email',$email)->first();
+
+        if($google_user == null )
+        {
+            $str_pd = Str::random(15);
+            $api_token = Str::random(12);
+            $hash_pd = Hash::make($str_pd);
+            $login_method = 'google_web';
+
+
+            $create = Sheep::create([
+
+                'name' => $name,
+                'email' => $email,
+                'password' => $hash_pd,
+                'api_token' => $api_token,
+                'login_method' => $login_method
+
+            ]);
+
+            return response()->json([
+                'msg' => '此帳號尚未註冊，現在將幫你進行註冊',
+                'data' => $create
+            ]);
+        }else{
+
+
+            $new_api_token = Str::random(15);
+
+
+            $google_user -> update(["api_token" =>$new_api_token]);
+
+
+            $new_google_user = Sheep::where('email',$email)->first();
+
+
+
+
+            return response()->json([
+                'msg' => '此用戶已註冊過',
+                'data' =>$new_google_user,
+            ]);
+
+
+        }
         return response()->json(['email'=>$email,'token' => $token]);
 //        dd($user)S;
     }
