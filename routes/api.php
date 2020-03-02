@@ -44,6 +44,9 @@ Route::post('/google/web/authtoken', 'SocialiteController@CheckToken');
 // google android
 Route::post('/google/android/authtoken', 'SocialiteController@FirebaseCheckAndroidToken');
 
+// FB
+Route::get('/fb/web/auth','SocialiteController@FbWebAuth');
+Route::get('/fb/web/auth/callback','SocialiteController@FbWebCallback');
 
 
 
