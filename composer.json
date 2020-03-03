@@ -11,6 +11,7 @@
         "php": "^7.2",
         "barryvdh/laravel-cors": "^1.0",
         "berkayk/onesignal-laravel": "^1.0",
+        "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.4",
         "laravel-notification-channels/onesignal": "^2.0",
