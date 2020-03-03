@@ -7,6 +7,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Socialite;
 use Google_Client;
+use \Facebook\Facebook as Facebook;
 use Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -191,10 +192,9 @@ class SocialiteController extends Controller
                 'data' =>$new_sheep_data,
             ]);
         }
-
-
-
     }
+
+
 
     public function FbWebAuth(){
         try {
@@ -207,8 +207,42 @@ class SocialiteController extends Controller
 
 
     public function FbWebAuthCallback(){
-       $fb_user=Socialite::driver('facebook');
+       $fb_user=Socialite::driver('facebook')->user();
        dd($fb_user);
+
+    }
+
+
+    public function FbCheckAndroidToken(Request $request)
+    {
+        $fb_token=$request['fb_token'];
+
+        $FB_client=new Facebook ([
+            'app_id' => '857041804747994',
+            'app_secret' => '01b3b06a8f057b5ce7bc5c37dbbb2b00',
+            'default_graph_version' => 'v5.0',    //  不要以爲安裝時寫 facebook/graph-sdk (5.7.0) ，就是 v5.7，是 v5.0啊！
+            'default_access_token' => $fb_token,
+        ]);
+//        dd($FB_client);
+
+        try{
+            $fb_user =$FB_client ->get('/me?fields=id,name,email',$fb_token);
+
+//            $fb_user = $FB_client -> get('/me',$fb_token);
+        }catch(\Facebook\Exceptions\FacebookResponseException $e) {
+            // Returns Graph API errors when they occur
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+            // Returns SDK errors when validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+        $fb_data = $fb_user->getGraphUser()->all();
+
+//        $fb_all=$fb_data->all();
+
+        return response()->json(['msg'=>'token 驗證成功', 'data'=>$fb_data]);
 
     }
 }
