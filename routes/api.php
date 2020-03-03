@@ -47,7 +47,7 @@ Route::post('/google/android/authtoken', 'SocialiteController@FirebaseCheckAndro
 // FB
 Route::get('/fb/web/auth','SocialiteController@FbWebAuth');
 Route::get('/fb/web/auth/callback','SocialiteController@FbWebCallback');
-
+Route::post('/fb/android/authtoken', 'SocialiteController@FbCheckAndroidToken');
 
 
 // not complete android token
