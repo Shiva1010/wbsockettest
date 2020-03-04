@@ -16,9 +16,9 @@ class CreateSheepTable extends Migration
         Schema::create('sheep', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
-            $table->string('api_token')->unique();
+            $table->string('api_token')->unique()->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNewCloumnSheep extends Migration
+class AddNewCloumsSheep extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddNewCloumnSheep extends Migration
      */
     public function up()
     {
-        Schema::table('sheep', function(Blueprint $table)
+        Schema::table('sheep',function (Blueprint $table)
         {
-           $table->string('login_method');
+            $table->string('fb_id')->unique()->nullable();
         });
     }
 
@@ -26,11 +26,9 @@ class AddNewCloumnSheep extends Migration
      */
     public function down()
     {
-        Schema::table('sheep', function (Blueprint $table)
+        Schema::table('sheep',function (Blueprint $table)
         {
-            $table->dropColumn('login_method');
+            $table->dropColumn('fb_id');
         });
     }
-
-
 }
