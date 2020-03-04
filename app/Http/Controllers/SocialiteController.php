@@ -241,8 +241,64 @@ class SocialiteController extends Controller
         $fb_data = $fb_user->getGraphUser()->all();
 
 //        $fb_all=$fb_data->all();
+        $fb_id = $fb_data['id'];
+        $fb_name = $fb_data['name'];
+//        $fb_email = $fb_data['email'];
+        $fb_old_user = Sheep::where('fb_id',$fb_id)->first();
+        $login_method = 'facebook';
+        if($fb_old_user == null){
+            $str_password = Str::random(20);
+            $api_token = Str::random(13);
+            $HashPwd = Hash::make($str_password);
+//            if(!$fb_email==null){
 
-        return response()->json(['msg'=>'token 驗證成功', 'data'=>$fb_data]);
+//                $mail_create=Sheep::create([
+//                    'name' => $fb_name,
+//                    'email' => $fb_email,
+//                    'password' => $HashPwd,
+//                    'api_token' => $api_token,
+//                    'fb_id' => $fb_id,
+//                    'login_method' => $login_method,
+//                ]);
+//                    return response()->json([
+//                        'msg' => 'FB 使用者，新註冊，有 email',
+//                        'data' => $mail_create,
+//                ]);
+//            }else{
+                $fb_id_create=Sheep::create([
+                    'name' => $fb_name,
+                    'password' => $HashPwd,
+                    'api_token' => $api_token,
+                    'fb_id' => $fb_id,
+                    'login_method' => $login_method,
+                ]);
+                return response()->json([
+                    'msg' => 'FB 使用者，新註冊，無 email',
+                    'data' => $fb_id_create,
+                    ]);
+//            }
+        }else{
+
+            $fb_up_token = Str::random(13);
+
+            // 用 DB 方式 update
+//            DB::table('sheep')
+//                ->where('email',$google_email)
+//                ->update(["api_token" =>$sheep_api_token]);
+
+            $fb_old_user -> update(["api_token" =>$fb_up_token]);
+
+
+            $new_fb_old_user = Sheep::where('fb_id',$fb_id)->first();
+
+
+
+
+            return response()->json([
+                'msg' => '此用戶已註冊過',
+                'data' =>$new_fb_old_user,
+            ]);
+        }
 
     }
 }
