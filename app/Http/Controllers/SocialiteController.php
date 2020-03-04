@@ -239,32 +239,41 @@ class SocialiteController extends Controller
             exit;
         }
         $fb_data = $fb_user->getGraphUser()->all();
+//        dd($fb_data);
 
 //        $fb_all=$fb_data->all();
         $fb_id = $fb_data['id'];
         $fb_name = $fb_data['name'];
-//        $fb_email = $fb_data['email'];
+
         $fb_old_user = Sheep::where('fb_id',$fb_id)->first();
         $login_method = 'facebook';
+
         if($fb_old_user == null){
+
             $str_password = Str::random(20);
             $api_token = Str::random(13);
             $HashPwd = Hash::make($str_password);
-//            if(!$fb_email==null){
 
-//                $mail_create=Sheep::create([
-//                    'name' => $fb_name,
-//                    'email' => $fb_email,
-//                    'password' => $HashPwd,
-//                    'api_token' => $api_token,
-//                    'fb_id' => $fb_id,
-//                    'login_method' => $login_method,
-//                ]);
-//                    return response()->json([
-//                        'msg' => 'FB 使用者，新註冊，有 email',
-//                        'data' => $mail_create,
-//                ]);
-//            }else{
+            if(isset($fb_data['email'])){
+
+                $fb_email = $fb_data['email'];
+                $mail_create=Sheep::create([
+                    'name' => $fb_name,
+                    'email' => $fb_email,
+                    'password' => $HashPwd,
+                    'api_token' => $api_token,
+                    'fb_id' => $fb_id,
+                    'login_method' => $login_method,
+                ]);
+
+                    return response()->json([
+                        'msg' => 'FB 使用者，新註冊，有 email',
+                        'data' => $mail_create,
+
+                ]);
+
+            }else{
+
                 $fb_id_create=Sheep::create([
                     'name' => $fb_name,
                     'password' => $HashPwd,
@@ -272,11 +281,13 @@ class SocialiteController extends Controller
                     'fb_id' => $fb_id,
                     'login_method' => $login_method,
                 ]);
+
                 return response()->json([
                     'msg' => 'FB 使用者，新註冊，無 email',
                     'data' => $fb_id_create,
                     ]);
-//            }
+            }
+
         }else{
 
             $fb_up_token = Str::random(13);
@@ -290,8 +301,6 @@ class SocialiteController extends Controller
 
 
             $new_fb_old_user = Sheep::where('fb_id',$fb_id)->first();
-
-
 
 
             return response()->json([
