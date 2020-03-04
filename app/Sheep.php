@@ -15,7 +15,7 @@ class Sheep extends Authenticatable
 
 
     protected $fillable=[
-        'name','email','api_token','password','login_method',
+        'fb_id','name','email','api_token','password','login_method',
     ];
 
 
