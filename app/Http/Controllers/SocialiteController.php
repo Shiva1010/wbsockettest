@@ -221,7 +221,7 @@ class SocialiteController extends Controller
 //            'app_id' => '857041804747994',
 //            'app_secret' => '01b3b06a8f057b5ce7bc5c37dbbb2b00',
             'app_id' => '513725972895589',
-            'app_secret' => '01b3b06a8f057b5ce7bc5c37dbbb2b00',
+            'app_secret' => '31cedc4cd880c02761f581bc34f7e6e4',
             'default_graph_version' => 'v5.0',    //  不要以爲安裝時寫 facebook/graph-sdk (5.7.0) ，就是 v5.7，是 v5.0啊！
             'default_access_token' => $fb_token,
         ]);
