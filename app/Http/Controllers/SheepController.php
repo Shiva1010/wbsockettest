@@ -136,7 +136,6 @@ class SheepController extends Controller
 
 
 
-
     /**
      * Display the specified resource.
      *
